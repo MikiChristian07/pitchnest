@@ -1,21 +1,78 @@
-import Image from 'next/image';
+// import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { auth } from '@/auth';
-import NavbarClient from './NavbarClient';
+import Image from 'next/image';
+import { auth, signOut, signIn } from '@/auth';
 
-const Navbar = async () => {
+const Navbar = async() => {
   const session = await auth();
 
   return (
-    <header className='px-5 py-3 bg-white shadow-sm font-work-sans'>
+    <header className='px-4 py-2 bg-white shadow-sm font-work-sans'>
       <nav className="flex justify-between items-center">
         <Link href="/">
-          <Image src="/logo.jpg" alt="logo" width={144} height={30} />
+          <Image src="/logo.jpg" alt="logo" width={80} height={20} />
         </Link>
-        <NavbarClient session={session} />
+
+        <div className="flex items-center gap-5">
+          {session && session?.user ? (
+            
+            <>
+              <Link href="/startup/create">
+                <span className="text-gray-500">Create</span>
+              </Link>
+
+              <form action={async() => {
+                "use server"
+
+                await signOut();
+
+              }}>
+              
+                <button type="submit">
+                  <span className="text-gray-500">Sign Out</span>
+                </button>
+              </form>
+
+              <Link href={`/user/${session?.id}`}>
+                  <span>{session?.user?.name}</span>
+              </Link>
+
+            </>
+          ) : (
+            <form action={async() => {
+              "use server";
+
+              await signIn('github');
+            }}>
+              <button className="text-gray-500" type='submit'>Sign In</button>
+            </form>
+          )}
+        </div>
       </nav>
     </header>
   );
 };
 
 export default Navbar;
+
+// import Image from 'next/image';
+// import Link from 'next/link';
+// import { auth } from '@/auth';
+// import NavbarClient from './NavbarClient';
+
+// const Navbar = async () => {
+//   const session = await auth();
+
+//   return (
+//     <header className='px-4 py-1 bg-white shadow-md'>
+//       <nav className="flex justify-between items-center max-w-7xl mx-auto">
+//         <Link href="/">
+//           <Image src="/logo.jpg" alt="logo" width={80} height={10} className="cursor-pointer" />
+//         </Link>
+//         <NavbarClient session={session} />
+//       </nav>
+//     </header>
+//   );
+// };
+
+// export default Navbar;
