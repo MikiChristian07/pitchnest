@@ -34,7 +34,7 @@ const Navbar = async() => {
               </form>
 
               <Link href={`/user/${session?.id}`}>
-                  <span>{session?.user?.name}</span>
+                  <span className='text-black'>{session?.user?.name}</span>
               </Link>
 
             </>
