@@ -15,7 +15,7 @@ const Navbar = async() => {
 
         <div className="flex items-center gap-5">
           {session && session?.user ? (
-            
+
             <>
               <Link href="/startup/create">
                 <span className="text-gray-500">Create</span>
@@ -27,13 +27,13 @@ const Navbar = async() => {
                 await signOut();
 
               }}>
-              
+
                 <button type="submit">
                   <span className="text-gray-500">Sign Out</span>
                 </button>
               </form>
 
-              <Link href={`/user/${session?.id}`}>
+              <Link href={`/user/${session.user.id}`}>
                   <span className='text-black'>{session?.user?.name}</span>
               </Link>
 
@@ -46,12 +46,14 @@ const Navbar = async() => {
             }}>
               <button className="text-gray-500" type='submit'>Sign In</button>
             </form>
+
           )}
         </div>
       </nav>
     </header>
   );
 };
+
 
 export default Navbar;
 
