@@ -10,6 +10,7 @@ export default function Home() {
           Share your ideas, vote on pitches, and shine in virtual competitions.
         </p>
         <SearchForm />
+        
       </section>
 
     </>
