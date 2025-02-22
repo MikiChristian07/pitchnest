@@ -10,7 +10,7 @@ export default async function Home({ searchParams }: {
   const posts = [{
     _createdAt: new Date(),
     views: 55,
-    author: { _id : 1 },
+    author: { _id : 1, name : 'Chris'},
     description: 'This is a sample description',
     image: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c3RhcnR1cHxlbnwwfHwwfHx8MA%3D%3D',
     category: 'Blockchain',
