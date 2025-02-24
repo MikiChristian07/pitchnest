@@ -2,9 +2,10 @@ import { formatDate } from '@/lib/utils'
 import { EyeIcon } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";//-
 
-const StartupCard = ( {post} : { post: StartupTypeCard }) => {
+
+const StartupCard = ( {post} : { post: StartupCardType }) => {
 
     const { _createdAt, views, author: { id: authorid, name: authorName }, title, category, _id, image, description } = post;
   return (
@@ -56,5 +57,17 @@ const StartupCard = ( {post} : { post: StartupTypeCard }) => {
     </li>
   )
 }
+
+type StartupCardType = {
+    _createdAt: string;
+    views: number;
+    author: { id: string; name: string };
+    title: string;
+    category: string;
+    _id: string;
+    image?: string;
+    description?: string;
+};
+
 
 export default StartupCard
