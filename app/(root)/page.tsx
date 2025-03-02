@@ -46,7 +46,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ q
 
         <ul className="mt-7 card-grid">
           {posts.length > 0 ? (
-            posts.map((post: StartupCardType) => <StartupCard key={post._id} post={post} />)
+            posts.map((post: StartupCardType) => <StartupCard key={post?._id} post={post} />)
           ) : (
             <p className="no-results" key="no_result">
               No results found
