@@ -1,5 +1,7 @@
 import SearchForm from "@/components/SearchForm";
 import StartupCard from "@/components/StartupCard";
+import { client } from "@/sanity/lib/client";
+import { STARTUPS_QUERY } from "@/sanity/lib/queries";
 
 type StartupCardType = {
   _id: string;
@@ -16,18 +18,9 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ q
   const params = await searchParams; // Wait for the search params
   const query = params?.query || "";
 
-  const posts: StartupCardType[] = [
-    {
-      _id: "1",
-      _createdAt: new Date().toISOString(),
-      views: 55,
-      author: { id: "1", name: "Chris" },
-      description: "This is a sample description",
-      image: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c3RhcnR1cHxlbnwwfHwwfHx8MA%3D%3D",
-      category: "Blockchain",
-      title: "Decenti-Firm",
-    }
-  ];
+  const posts = await client.fetch(STARTUPS_QUERY);
+
+  console.log(JSON.stringify(posts));
 
   return (
     <>
