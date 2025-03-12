@@ -9,10 +9,9 @@ export default async function Home({
   searchParams: Promise<{ query?: string }> 
 }) {
   const query = (await searchParams).query;
+  const params  = { search: query || null };
 
-  const { data: posts } = await sanityFetch({ query: STARTUPS_QUERY });
-
-  console.log(JSON.stringify(posts));
+  const { data: posts } = await sanityFetch({ query: STARTUPS_QUERY, params  });
 
   return (
     <>
@@ -29,7 +28,7 @@ export default async function Home({
           {query ? `Search results for "${query}"` : "All Startups"}
         </p>
 
-        <ul className="mt-7 card-grid">
+        <ul className="mt-7 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {posts.length > 0 ? (
             posts.map((post: StartupTypeCard) => <StartupCard key={post?._id} post={post} />)
           ) : (
