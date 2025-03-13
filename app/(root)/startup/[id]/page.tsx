@@ -1,23 +1,22 @@
 import { client } from '@/sanity/lib/client';
 import { STARTUP_BY_ID_QUERY } from '@/sanity/lib/queries';
 import { notFound } from 'next/navigation';
-import React from 'react'
+import React from 'react';
 
-export const exprimental_ppr = true;
+export const revalidate = 0; // Opt into Partial Prerendering
 
-const page = async ({ params } : { params: { id: string }}) => {
+const Page = async ({ params }: { params: { id: string } }) => {
     const { id } = params;
 
     const post = await client.fetch(STARTUP_BY_ID_QUERY, { id });
 
-    if  (!post) return notFound();
+    if (!post) return notFound();
 
     return (
         <>
             <h1 className='text-3xl'>{post.title}</h1>
         </>
     );
-}
+};
 
-
-export default page
+export default Page;
