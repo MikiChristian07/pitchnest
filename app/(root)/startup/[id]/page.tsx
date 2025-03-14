@@ -15,8 +15,10 @@ import View from  '@/components/View';
 const md = markdownit();
 
 export const revalidate = 0; // Opt into Partial Prerendering
+
 const Page = async ({ params }: { params: { id: string } }) => {
-    const { id } = params;
+    const awaitedParams = await params; // Explicitly await params
+    const { id } = awaitedParams;
 
     try {
         const post = await client.fetch(STARTUP_BY_ID_QUERY, { id });
