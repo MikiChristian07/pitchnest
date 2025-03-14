@@ -2,12 +2,15 @@
 import { client } from '@/sanity/lib/client';
 import { STARTUP_BY_ID_QUERY } from '@/sanity/lib/queries';
 import { notFound } from 'next/navigation';
-import React from 'react';
+import React, { Suspense } from 'react';
 import { formatDate } from '@/lib/utils';
 import Link from 'next/link';
 import Image from 'next/image';
 
+import { Skeleton } from '@/components/ui/skeleton';
+
 import markdownit from 'markdown-it';
+import View from '@/components/view';
 
 const md = markdownit();
 
@@ -74,7 +77,15 @@ const Page = async ({ params }: { params: { id: string } }) => {
 
             <hr className='divider'/>
 
+            {/* TODO: EDITOR SELECTED STARTUPS */}
+            
+            <Suspense fallback={<Skeleton className='view_skeleton'/>}>
+                <View id={id} />
+            </Suspense>
+
            </section>
+
+
         </>
     );
 };
