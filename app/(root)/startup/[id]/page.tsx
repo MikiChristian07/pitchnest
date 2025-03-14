@@ -14,6 +14,10 @@ const Page = async ({ params }: { params: { id: string } }) => {
 
     return (
         <>
+
+            <section>
+                
+            </section>
             <h1 className='text-3xl'>{post.title}</h1>
         </>
     );
