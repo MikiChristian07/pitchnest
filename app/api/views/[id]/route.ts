@@ -9,7 +9,9 @@ export async function POST(req: Request, { params }: Params): Promise<NextRespon
   const { id } = params;
 
   try {
-    await writeClient.patch(id).inc({ views: 1 }).commit();
+    await writeClient.patch(id)
+    .inc({ views: 1 })
+    .commit();
     return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json(

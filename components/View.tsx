@@ -1,6 +1,5 @@
-"use client"; // Must run on the client side
-
-import { useEffect, useState } from "react";
+"use client"; 
+import { useEffect, useState, useRef } from "react";
 import Ping from "./Ping";
 import { client } from "@/sanity/lib/client";
 import { STARTUP_VIEWS_QUERY } from "@/sanity/lib/queries";
@@ -11,6 +10,7 @@ interface ViewProps {
 
 const View: React.FC<ViewProps> = ({ id }) => {
   const [totalViews, setTotalViews] = useState<number>(0);
+  const hasIncremented = useRef(false); // Prevents duplicate increments
 
   useEffect(() => {
     const fetchViews = async () => {
@@ -23,6 +23,9 @@ const View: React.FC<ViewProps> = ({ id }) => {
     };
 
     const incrementViews = async () => {
+      if (hasIncremented.current) return; // Prevents double increment
+      hasIncremented.current = true;
+
       try {
         await fetch(`/api/views/${id}`, { method: "POST" });
       } catch (error) {
@@ -30,8 +33,8 @@ const View: React.FC<ViewProps> = ({ id }) => {
       }
     };
 
-    fetchViews(); // Load initial views
-    incrementViews(); // Increment view count in the background
+    fetchViews();
+    incrementViews();
   }, [id]);
 
   return (
