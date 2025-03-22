@@ -3,8 +3,7 @@ import GitHub from "next-auth/providers/github"
 import { AUTHOR_BY_GITHUB_ID_QUERY } from "./sanity/lib/queries"
 import { client } from "./sanity/lib/client"
 import { writeClient } from "./sanity/lib/write-client"
-import { User } from "lucide-react"
- 
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [GitHub],
   callbacks: {
@@ -12,7 +11,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       user: { name, email, image },
       profile: { id, login, bio }
     }) {
-      const exisitingUser = await client.fetch( AUTHOR_BY_GITHUB_ID_QUERY, { 
+      const exisitingUser = await client
+        .withConfig({ useCdn: false })
+        .fetch( AUTHOR_BY_GITHUB_ID_QUERY, { 
         id: id
       });
 
