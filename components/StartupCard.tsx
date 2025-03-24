@@ -52,7 +52,7 @@ const StartupCard = ( {post} : { post: StartupTypeCard }) => {
                 {description}
             </p>
 
-            <img src={image} alt="placeolder" className='startup-card_img' />
+            <Image src={image || "https://placehold.co/500x300"} alt="placeholder" className='startup-card_img' layout="responsive" width={500} height={300} />
         </Link>
 
         <div className="flex-between gap-3 mt-5">
