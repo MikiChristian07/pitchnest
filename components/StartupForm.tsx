@@ -9,6 +9,7 @@ import { Send } from "lucide-react";
 import { formSchema } from "@/lib/validation";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
+import { createPitch } from "@/lib/actions";
 
 const StartupForm = () => {
     const [errors, setErrors] = useState<Record<string, string>>({});
@@ -29,26 +30,24 @@ const StartupForm = () => {
             // Validate the form values
             await formSchema.parseAsync(formValues);
 
-            console.log(formValues);
 
             // Reset errors if validation passes
             setErrors({});
 
             // Submit the form (e.g., call an API)
-            // const result = await createIdea(prevState, formData, pitch);
-            // console.log(result);
+            const result = await createPitch(prevState, formData, pitch);
 
-            // if (result.status === "SUCCESS") {
-            //     toast({
-            //         title: "Success",
-            //         description: "Your startup idea has been submitted successfully.",
-            //         variant: "default",
-            //     });
+            if (result.status === "SUCCESS") {
+                toast({
+                    title: "Success",
+                    description: "Your startup idea has been submitted successfully.",
+                    variant: "default",
+                });
 
-            //     router.push(`/startup/${result.id}`); // Redirect to the home page after successful submission
-            // }
+                router.push(`/startup/${result._id}`); // Redirect to the home page after successful submission
+            }
 
-            // return result;
+            return result;
             
         } catch (error: any) {
             // Catch validation errors and update the errors state

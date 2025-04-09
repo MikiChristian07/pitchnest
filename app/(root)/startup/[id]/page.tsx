@@ -17,7 +17,7 @@ const md = markdownit();
 export const revalidate = 0; // Opt into Partial Prerendering
 
 const Page = async ({ params }: { params: { id: string } }) => {
-    const awaitedParams = await params; // Explicitly await params
+    const awaitedParams = await params;
     const { id } = awaitedParams;
 
     try {
@@ -49,7 +49,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
                                 className='flex gap-2 items-center mb-3' 
                             >
                                 <Image
-                                    src={post.author?.image}
+                                    src={post.author?.image || "https://placehold.co/64x64"}
                                     alt="avatar"
                                     width={64}
                                     height={64}
@@ -57,8 +57,8 @@ const Page = async ({ params }: { params: { id: string } }) => {
                                 />
 
                                 <div>
-                                    <p className='text-20-medium'>{post.author.name}</p>
-                                    <p className='text-16-medium !text-black-300'>@{post.author.username}</p>
+                                    <p className='text-20-medium'>{post.author?.name || "Unknown Author"}</p>
+                                    <p className='text-16-medium !text-black-300'>@{post.author?.username || "unknown"}</p>
                                 </div>
                             </Link>
 
